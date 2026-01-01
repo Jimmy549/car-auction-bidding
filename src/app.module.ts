@@ -29,7 +29,7 @@ import { GatewayModule } from './gateway/gateway.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGO_URI') || 'mongodb://localhost:27017/auction-platform',
+        uri: configService.get<string>('MONGO_URI'),
       }),
       inject: [ConfigService],
     }),
@@ -55,7 +55,7 @@ export class AppModule implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    const mongoUri = this.configService.get<string>('MONGO_URI') || 'mongodb://localhost:27017/auction-platform';
+    const mongoUri = this.configService.get<string>('MONGO_URI')
     this.logger.log(`MONGO_URI from ConfigService: ${mongoUri}`);
 
     if (this.connection.readyState === 1) {
