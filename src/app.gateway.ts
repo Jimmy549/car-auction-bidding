@@ -21,9 +21,14 @@ interface AuthenticatedSocket extends Socket {
 
 @WebSocketGateway({
   cors: {
-    origin: "*",
+    origin: ["https://auction-frontend-eight-pi.vercel.app", "http://localhost:3000"],
     credentials: true,
+    methods: ["GET", "POST"]
   },
+  transports: ['websocket', 'polling'],
+  allowEIO3: true,
+  pingTimeout: 60000,
+  pingInterval: 25000
 })
 export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
